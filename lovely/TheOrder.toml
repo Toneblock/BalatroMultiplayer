@@ -120,3 +120,11 @@ pattern = '''if G.GAME.modifiers.enable_rentals_in_shop and pseudorandom((area =
 position = "at"
 payload = '''if G.GAME.modifiers.enable_rentals_in_shop and pseudorandom(_order..(area == G.pack_cards and 'packssjr' or 'ssjr')..G.GAME.round_resets.ante) > 0.7 and not SMODS.Stickers["rental"].should_apply then'''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = '''local edition = poll_edition('edi'..(key_append or '')..G.GAME.round_resets.ante)'''
+position = "at"
+payload = '''local edition = poll_edition(_order..'edi'..(key_append or '')..G.GAME.round_resets.ante)'''
+match_indent = true
