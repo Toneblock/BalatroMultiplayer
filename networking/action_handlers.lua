@@ -180,7 +180,7 @@ local function action_lobbyInfo(host, hostHash, hostCached, guest, guestHash, gu
 
 	if MP.LOBBY.is_host then MP.ACTIONS.lobby_options() end
 
-	if G.STAGE == G.STAGES.MAIN_MENU then MP.ACTIONS.update_player_usernames() end
+	if G.STAGE == G.STAGES.MAIN_MENU then MP.update_lobby_info() end
 end
 
 local function action_error(message)
@@ -434,7 +434,7 @@ local function action_lobby_options(options)
 	if different_decks_before ~= MP.LOBBY.config.different_decks then
 		G.FUNCS.exit_overlay_menu() -- throw out guest from any menu.
 	end
-	MP.ACTIONS.update_player_usernames() -- render new DECK button state
+	MP.update_lobby_info()
 end
 
 local function action_send_phantom(key)
@@ -1138,13 +1138,6 @@ function MP.ACTIONS.connect()
 	Client.send({
 		action = "connect",
 	})
-end
-
-function MP.ACTIONS.update_player_usernames()
-	if MP.LOBBY.code then
-		if G.MAIN_MENU_UI then G.MAIN_MENU_UI:remove() end
-		set_main_menu_UI()
-	end
 end
 
 local function string_to_table(str)
